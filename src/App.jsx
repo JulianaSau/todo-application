@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./App.css";
 import { 
   ThemeProvider,
@@ -6,10 +5,12 @@ import {
   ColorModeProvider,
   CSSReset 
 } from "@chakra-ui/react";
-import { TodoList } from "./pages";
+import { TodoList } from "pages";
+
+{/* ToDo: improve overall ook of the application  */}
+{/* ToDo: add toasts  */}
 
 function App() {
-
   return (
     <ThemeProvider theme={theme}>
       <ColorModeProvider>

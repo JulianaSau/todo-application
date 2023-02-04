@@ -30,6 +30,7 @@ const Header = ({clearTodos}) => {
   React.useEffect(() => {
     return scrollY.onChange(() => setY(scrollY.get()));
   }, [scrollY]);
+  {/* ToDo: improve button ui   */}
   const ClearTodosButton = (
     <Button
       display={{
@@ -86,7 +87,8 @@ const Header = ({clearTodos}) => {
         justifySelf="self-start"
         onClick={mobileNav.onClose}
       />
-      <Button w="full" variant="ghost" leftIcon={<BsTrash />}>
+      
+      <Button w="full" variant="ghost" leftIcon={<BsTrash />} onClick={()=>clearTodos()}>
         Clear Todos
       </Button>
     </VStack>
@@ -99,14 +101,14 @@ const Header = ({clearTodos}) => {
         transition="box-shadow 0.2s"
         bg={bg}
         borderBottom="1px"
-        borderBottomColor={useColorModeValue("gray.100", "gray.800")}
+        borderBottomColor={useColorModeValue("gray.100", "gray.500")}
         w="full"
         overflowY="hidden"
       >
-        <chakra.div h="4.5rem" mx="10">
-          <Flex w="full" h="full" px="6" align="center" justify="space-between">
-            <Flex align="center">
-              <Text>Todo App</Text>
+        <chakra.div h="4.5rem" mx={{base:3,md:"10"}}>
+          <Flex w="full" h="full" px={{base:3,md:"6"}} align="center" justify="space-between">
+            <Flex align="center" w="full">
+              <Text w="full" fontWeight={"600"} color="blue.500">Todo App</Text>
             </Flex>
 
             <Flex

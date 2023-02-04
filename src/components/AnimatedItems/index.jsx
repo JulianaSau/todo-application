@@ -1,5 +1,6 @@
 import { Component, Fragment } from "react";
 
+{/* ToDo: convert to functional component  */}
 export default class AnimatedItems extends Component {
 	componentDidMount() {
 		this.initialPositions = this.getElementPositions();
@@ -30,8 +31,8 @@ export default class AnimatedItems extends Component {
       }
 			else {
 				prevData = this.initialPositions[key];
-				deltaX = prevData.clientRect.left - newData.clientRect.left;
-				deltaY = prevData.clientRect.top - newData.clientRect.top;
+				deltaX = prevData?.clientRect.left - newData?.clientRect.left;
+				deltaY = prevData?.clientRect.top - newData?.clientRect.top;
 			}
 
 			requestAnimationFrame(() => {
@@ -81,7 +82,7 @@ export default class AnimatedItems extends Component {
 			obj[children[index].key] = {
 				index,
 				clientRect: el.getBoundingClientRect(),
-				isNewElement: newChild ? newChild[0].key === children[index].key : false,
+				isNewElement: newChild ? newChild[0]?.key === children[index]?.key : false,
 			};
 			return obj;
 		}, {});

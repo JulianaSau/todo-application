@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Flex,
-  chakra,
   Box,
   Icon,
   useColorModeValue,
@@ -11,15 +10,19 @@ import {
   MenuList,
   MenuButton,
   Portal,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { BsThreeDotsVertical, BsTrash } from "react-icons/bs";
 import { FaCheckCircle } from "react-icons/fa";
+import EditTodo from "../EditTodo";
 
-const TodoCard = ({ todo, removeTodo, completeTodo }) => {
+const TodoCard = ({ todo, removeTodo, completeTodo, updateTodo }) => {
   const borderColor = useColorModeValue("gray.400", "gray.300");
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
+    <>
     <Flex
       mt={4}
       onClick={(e) => {
@@ -60,7 +63,8 @@ const TodoCard = ({ todo, removeTodo, completeTodo }) => {
         )}
         <Flex alignItems="top" px={2} py={5}>
           <Box mx={3} textAlign="left">
-            <chakra.p
+            <Box
+            // as={Text}
               w="100%"
               noOfLines={3}
               color="gray.500"
@@ -70,7 +74,7 @@ const TodoCard = ({ todo, removeTodo, completeTodo }) => {
               textDecoration={todo.isCompleted ? "line-through" : "none"}
             >
               {todo.text}
-            </chakra.p>
+            </Box>
           </Box>
         </Flex>
       </Flex>
@@ -84,7 +88,7 @@ const TodoCard = ({ todo, removeTodo, completeTodo }) => {
         />
         <Portal>
           <MenuList>
-            <MenuItem icon={<EditIcon />} onClick={(e)=>{e.stopPropagation()}}>Edit Todo</MenuItem>
+            <MenuItem icon={<EditIcon />} onClick={(e)=>{e.stopPropagation();onOpen()}}>Edit Todo</MenuItem>
             <MenuItem
               icon={<BsTrash />}
               onClick={(e) => {
@@ -98,6 +102,8 @@ const TodoCard = ({ todo, removeTodo, completeTodo }) => {
         </Portal>
       </Menu>
     </Flex>
+    <EditTodo isOpen={isOpen} onClose={onClose} updateTodo={updateTodo} todo={todo}/>
+    </>
   );
 };
 

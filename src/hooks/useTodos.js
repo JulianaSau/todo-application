@@ -1,7 +1,11 @@
 import { useState } from "react";
 
 function useTodos(initialTodos) {
-  const [todos, setTodos] = useState(initialTodos);
+  const [todos, setTodos] = useState(
+    localStorage.getItem("todos")
+      ? JSON.parse(localStorage.getItem("todos"))
+      : initialTodos
+  );
   const orderCompletedTodos = (todos) => {
     todos.sort((x, y) => x.isCompleted - y.isCompleted);
   };
@@ -27,7 +31,7 @@ function useTodos(initialTodos) {
       }
       const newTodos = [
         {
-          id: todos.length + 1,
+          id: generateRandomString(20),
           text: newTodo.text,
           completed: false,
         },
@@ -35,19 +39,24 @@ function useTodos(initialTodos) {
       ];
       orderCompletedTodos(newTodos);
       setTodos(newTodos);
+      localStorage.setItem("todos", JSON.stringify(newTodos));
     },
     updateTodo: (todoId, newValue) => {
-      if (!newValue.text || /^\s*$/.test(newValue.text)) {
+      if (!newValue || /^\s*$/.test(newValue)) {
         return;
       }
 
-      setTodos((prev) =>
-        prev.map((item) => (item.id === todoId ? newValue : item))
-      );
+      const updatedTodos = todos.map((todo) => {
+        return todo.id === todoId ? { ...todo, text: newValue } : todo;
+      });
+
+      setTodos(updatedTodos);
+      localStorage.setItem("todos", JSON.stringify(updatedTodos));
     },
     removeTodo: (todoId) => {
       const updatedTodos = todos.filter((todo) => todo.id !== todoId);
       setTodos(updatedTodos);
+      localStorage.setItem("todos", JSON.stringify(updatedTodos));
     },
     toggleCompleteTodo: (todoId) => {
       const updatedTodos = todos.map((todo) => {
@@ -57,9 +66,11 @@ function useTodos(initialTodos) {
       });
       orderCompletedTodos(updatedTodos);
       setTodos(updatedTodos);
+      localStorage.setItem("todos", JSON.stringify(updatedTodos));
     },
     clearTodos: () => {
       setTodos([]);
+      localStorage.setItem("todos", JSON.stringify(todos));
     },
   };
 }

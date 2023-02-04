@@ -6,14 +6,24 @@ import {
   Text,
   useColorModeValue,
   Grid,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { Header, TodoCard, AnimatedItems } from "../components";
-import useTodos from "../hooks/useTodos";
+import { Header, TodoCard, AnimatedItems } from "components";
+import useTodos from "hooks/useTodos";
+import { AddIcon } from "@chakra-ui/icons";
 
 const TodoList = () => {
   const [value, setValue] = useState("");
-  const {todos, addTodo, clearTodos,removeTodo,toggleCompleteTodo} = useTodos([]);
+  const {
+    todos,
+    addTodo,
+    clearTodos,
+    removeTodo,
+    toggleCompleteTodo,
+    updateTodo,
+  } = useTodos([]);
 
   function handleKeyDown(e) {
     if (e.key === "Enter") {
@@ -37,97 +47,38 @@ const TodoList = () => {
               You've got {todos.length} task this week
             </Text>
           </Box>
-          <Input
-            mt={3}
-            aria-label="Create todos input"
-            placeholder="Create new todo"
-            w="30vw"
-            value={value}
-            onKeyDown={(e) => handleKeyDown(e)}
-            onChange={(event) => setValue(event.currentTarget.value)}
-          />
+          <InputGroup mt={3} w={{ base: "90%", md: "30vw" }}>
+            <InputLeftElement pointerEvents="none">
+              <AddIcon color="gray.300" />
+            </InputLeftElement>
+            <Input
+              
+              aria-label="Create todos input"
+              placeholder="Create new todo"
+              
+              value={value}
+              onKeyDown={(e) => handleKeyDown(e)}
+              onChange={(event) => setValue(event.currentTarget.value)}
+            />
+          </InputGroup>
           <Text mt={7} mb={3}>
-            Tasks - {todos.length}
+            Total - {todos.length} {"   "} Completed -{" "}
+            {[...todos.filter((todo) => todo.isCompleted === true)].length}
           </Text>
 
           {/* Todo Cards */}
-          <Grid gap={4} w="100%">
+          <Grid gap={4} w="100%" pb={20}>
             <AnimatedItems>
+              {/* ToDo: add empty state view  */}
+              {/* ToDo: add completed all tasks state view  */}
               {todos.map((todo) => {
                 return (
-                  // <Flex
-                  //   onClick={() => todos.toggleCompleteTodo(todo.id)}
-                  //   borderWidth={todo.isCompleted ? "2px" : "0px"}
-                  //   borderColor={todo.isCompleted ? "blue.400" : "transparent"}
-                  //   cursor={"pointer"}
-                  //   minW={{ base: "90vw", md: "420px" }}
-                  //   w={{ base: "90vw", md: "420px" }}
-                  //   mx="auto"
-                  //   bg="white"
-                  //   _dark={{
-                  //     bg: "gray.700",
-                  //   }}
-                  //   shadow="md"
-                  //   px="5"
-                  //   rounded="lg"
-                  //   overflow="hidden"
-                  //   alignItems={"center"}
-                  //   justify="space-between"
-                  // >
-                  //   <Flex alignItems={"center"} justify="space-between">
-                  //     {todo.isCompleted ? (
-                  //       <Icon as={FaCheckCircle} color="primary.500" />
-                  //     ) : (
-                  //       <Flex
-                  //         justify={"center"}
-                  //         align="center"
-                  //         h="15px"
-                  //         w="15px"
-                  //         bg="white"
-                  //         borderRadius="15px"
-                  //         borderWidth={"1px"}
-                  //         borderColor={borderColor}
-                  //       />
-                  //     )}
-                  //     <Flex alignItems="top" px={2} py={5}>
-                  //       <Box mx={3} textAlign="left">
-                  //         <chakra.p
-                  //           w="100%"
-                  //           noOfLines={3}
-                  //           color="gray.500"
-                  //           _dark={{
-                  //             color: "gray.200",
-                  //           }}
-                  //           textDecoration={todo.isCompleted ? "line-through" : "none"}
-                  //         >
-                  //           {todo.text}
-                  //         </chakra.p>
-                  //       </Box>
-                  //     </Flex>
-                  //   </Flex>
-                  //   <Menu>
-                  //     <MenuButton
-                  //       as={IconButton}
-                  //       aria-label="Options"
-                  //       icon={<BsThreeDotsVertical />}
-                  //       variant="ghost"
-                  //     />
-                  //     <MenuList>
-                  //       <MenuItem icon={<EditIcon />}>Edit Todo</MenuItem>
-                  //       <MenuItem
-                  //         icon={<BsTrash />}
-                  //         onClick={() => todos.removeTodo(todo.id)}
-                  //       >
-                  //         Delete Todo
-                  //       </MenuItem>
-                  //     </MenuList>
-                  //   </Menu>
-                  // </Flex>
                   <TodoCard
                     key={todo.id}
                     todo={todo}
                     removeTodo={removeTodo}
                     completeTodo={toggleCompleteTodo}
+                    updateTodo={updateTodo}
                   />
                 );
               })}
