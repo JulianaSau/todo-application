@@ -6,7 +6,6 @@ import {
   ColorModeProvider,
   CSSReset 
 } from "@chakra-ui/react";
-import { ThemeToggler } from './components'
 import { TodoList } from "./pages";
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <ColorModeProvider>
         <CSSReset />
-        <ThemeToggler />
         <TodoList />
       </ColorModeProvider>
     </ThemeProvider>
