@@ -42,7 +42,7 @@ const TodoList = () => {
     <Box maxW="100vw" overflowX={"hidden"} w={{base:"100%",md:"full"}}>
       <Header clearTodos={clearTodos} />
       <Center>
-        <Flex flexDir="column" w={{md:"full"}} px={{base:10,md:40,md:60}}>
+        <Flex flexDir="column" w={{md:"full"}} px={{base:10,md:40,lg:60}}>
           <Box>
             <Text fontWeight="600"  textAlign={{base:"center",md:"left"}} fontSize={{base:"1.5rem",md:"2rem"}} mt={10}>
               Welcome back
