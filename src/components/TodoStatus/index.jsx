@@ -5,7 +5,7 @@ import React from "react";
 const CompletedText = "Congratulations. You've completed all your todos🥳"
 const NoTodosText = "You're all caught up😁. When you add a new todo, it will appear here"
 
-const TodoStatus = (status) => {
+const TodoStatus = ({status}) => {
   return (<HStack
     h="100%"
     alignItems="left"

@@ -33,6 +33,7 @@ function useTodos(initialTodos) {
     toast({
       title: "Success",
       description: `${title}`,
+      position: "bottom-right",
       status: "success",
       duration: 1000,
       isClosable: true
@@ -55,7 +56,6 @@ function useTodos(initialTodos) {
       ];
       orderCompletedTodos(newTodos);
       setTodos(newTodos);
-      showToast("Added todo successfully")
       localStorage.setItem("todos", JSON.stringify(newTodos));
     },
     updateTodo: (todoId, newValue) => {
@@ -85,7 +85,6 @@ function useTodos(initialTodos) {
       });
       orderCompletedTodos(updatedTodos);
       setTodos(updatedTodos);
-      showToast("Updated todo successfully")
       localStorage.setItem("todos", JSON.stringify(updatedTodos));
     },
     clearTodos: () => {
