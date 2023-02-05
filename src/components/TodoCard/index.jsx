@@ -19,6 +19,7 @@ import EditTodo from "../EditTodo";
 
 const TodoCard = ({ todo, removeTodo, completeTodo, updateTodo }) => {
   const borderColor = useColorModeValue("gray.400", "gray.300");
+  const completedColor = todo.isCompleted ? "blue.500" : "gray.200"
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -57,19 +58,18 @@ const TodoCard = ({ todo, removeTodo, completeTodo, updateTodo }) => {
             w="15px"
             bg="white"
             borderRadius="15px"
-            borderWidth={"1px"}
+            borderWidth={"2px"}
             borderColor={borderColor}
           />
         )}
         <Flex alignItems="top" px={2} py={5}>
           <Box mx={3} textAlign="left">
             <Box
-            // as={Text}
               w="100%"
               noOfLines={3}
-              color="gray.500"
+              color={todo.isCompleted ? "blue.500" : "gray.500"}
               _dark={{
-                color: "gray.200",
+                color: completedColor,
               }}
               textDecoration={todo.isCompleted ? "line-through" : "none"}
             >
