@@ -15,8 +15,7 @@ import {
   Header,
   TodoCard,
   AnimatedItems,
-  CompletedTodos,
-  NoTodos,
+  TodoStatus,
 } from "components";
 import useTodos from "hooks/useTodos";
 import { AddIcon } from "@chakra-ui/icons";
@@ -40,22 +39,22 @@ const TodoList = () => {
   }
 
   return (
-    <>
+    <Box maxW="100vw" overflowX={"hidden"} w={{base:"100%",md:"full"}}>
       <Header clearTodos={clearTodos} />
       <Center>
-        <Flex flexDir="column" w="lg" align="center">
+        <Flex flexDir="column" w={{md:"full"}} px={{base:10,md:40,md:60}}>
           <Box>
-            <Text fontWeight="600" fontSize="2rem" mt={10}>
+            <Text fontWeight="600"  textAlign={{base:"center",md:"left"}} fontSize={{base:"1.5rem",md:"2rem"}} mt={10}>
               Welcome back
             </Text>
             <Text
-              textAlign={"center"}
+              textAlign={{base:"center",md:"left"}}
               color={useColorModeValue("gray.500", "gray.400")}
             >
               You've got {todos.length} task this week
             </Text>
           </Box>
-          <InputGroup mt={8} w={{ base: "90%", md: "30vw" }}>
+          <InputGroup mt={8} w={{ base: "90%", md: "full" }}>
             <InputLeftElement pointerEvents="none">
               <IconButton size="xs" p={2} as={AddIcon} color="white" bg="blue.300" />
             </InputLeftElement>
@@ -69,15 +68,15 @@ const TodoList = () => {
           </InputGroup>
 
           {/* Todo Cards */}
-          <Grid gap={4} w="100%" pb={20}>
+          <Grid gap={4} w="full" pb={20}>
             {[...todos.filter((todo) => todo.isCompleted === true)].length ===
               todos.length &&
-              todos.length > 0 && <CompletedTodos />}
+              todos.length > 0 && <TodoStatus status={"completed"} />}
             {todos.length === 0 ? (
-              <NoTodos />
+              <TodoStatus status={"none"} />
             ) : (
               <React.Fragment>
-                <Text textAlign="left" pl={12} w="100%" pt={10} mb={-3}>
+                <Text textAlign="left" w="100%" pt={10} mb={-3}>
                   Completed - {" "}
                   {
                     [...todos.filter((todo) => todo.isCompleted === true)]
@@ -102,7 +101,7 @@ const TodoList = () => {
           </Grid>
         </Flex>
       </Center>
-    </>
+    </Box>
   );
 };
 export default TodoList;

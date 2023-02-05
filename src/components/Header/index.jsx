@@ -30,7 +30,7 @@ const Header = ({clearTodos}) => {
   React.useEffect(() => {
     return scrollY.onChange(() => setY(scrollY.get()));
   }, [scrollY]);
-  {/* ToDo: improve button ui   */}
+
   const ClearTodosButton = (
     <Button
       display={{
@@ -38,22 +38,22 @@ const Header = ({clearTodos}) => {
         md: "flex",
       }}
       alignItems="center"
-      aria-label="Sponsor Choc UI on Open Collective"
-      bg="gray.50"
+      aria-label="Clear todos button"
+      bg="blue.500"
       borderWidth="1px"
-      borderColor="gray.200"
+      borderColor="blue.500"
       px="1em"
       minH="36px"
       rounded="md"
       fontSize="sm"
-      color="gray.800"
+      color="white"
       transition="all 0.3s"
       _hover={{
-        bg: "gray.100",
-        borderColor: "gray.300",
+        bg: "blue.300",
+        borderColor: "blue.300",
       }}
       _active={{
-        borderColor: "gray.200",
+        borderColor: "blue.300",
       }}
       _focus={{
         boxShadow: "outline",
@@ -88,7 +88,7 @@ const Header = ({clearTodos}) => {
         onClick={mobileNav.onClose}
       />
       
-      <Button w="full" variant="ghost" leftIcon={<BsTrash />} onClick={()=>clearTodos()}>
+      <Button w="full" variant="ghost" colorScheme={"blue"} leftIcon={<BsTrash />} onClick={()=>clearTodos()}>
         Clear Todos
       </Button>
     </VStack>

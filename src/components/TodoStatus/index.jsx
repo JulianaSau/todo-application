@@ -1,38 +1,24 @@
-import { Stack, Text, Icon } from "@chakra-ui/react";
+import { Text, Icon, HStack } from "@chakra-ui/react";
 import { BsCheckCircle } from "react-icons/bs";
 import React from "react";
 
-export const CompletedTodos = () => {
-  return (<Stack
+const CompletedText = "Congratulations. You've completed all your todos🥳"
+const NoTodosText = "You're all caught up😁. When you add a new todo, it will appear here"
+
+export const TodoStatus = (status) => {
+  return (<HStack
     h="100%"
-    alignItems="center"
-    justify="center"
-    textAlign={"center"}
+    alignItems="left"
+    justify="left"
+    textAlign={"left"}
     w="100%"
     pt="10"
   >
-    <Icon as={BsCheckCircle} h="50px" w="50px" color="blue.300" />
+    <Icon as={BsCheckCircle} h="24px" w="24px" color="blue.300" />
     <Text color="gray.400">
-      Congratulations. You've completed all your todos🥳
+      {status === "completed" ? CompletedText : null}
+      {status === "none" ? NoTodosText : null}
     </Text>
-  </Stack>)
+  </HStack>)
 };
 
-export const NoTodos = () => {
-  return (
-    <Stack
-      h="300px"
-      alignItems="center"
-      justify="center"
-      textAlign={"center"}
-      w="100%"
-      pt="5"
-    >
-      <Icon as={BsCheckCircle} h="50px" w="50px" color="blue.300" />
-      <Text color="gray.400" w="60%" textAlign={"center"}>
-        You're all caught up😁. When you add a new todo, it will appear
-        here
-      </Text>
-    </Stack>
-  );
-};

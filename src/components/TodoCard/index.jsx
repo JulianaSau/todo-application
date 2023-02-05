@@ -34,8 +34,7 @@ const TodoCard = ({ todo, removeTodo, completeTodo, updateTodo }) => {
       borderColor={todo.isCompleted ? "blue.400" : "transparent"}
       cursor={"pointer"}
       minW={{ base: "90vw", md: "420px" }}
-      w={{ base: "90vw", md: "420px" }}
-      mx="auto"
+      w={{ base: "80vw", md: "full" }}
       bg="white"
       _dark={{
         bg: "gray.700",
