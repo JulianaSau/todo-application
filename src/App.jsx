@@ -7,8 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { TodoList } from "pages";
 
-{/* ToDo: improve overall ook of the application  */}
-{/* ToDo: add toasts  */}
+{/* ToDo: improve overall look of the application  */}
 
 function App() {
   return (
