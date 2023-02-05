@@ -33,6 +33,7 @@ const TodoList = () => {
 
   function handleKeyDown(e) {
     if (e.key === "Enter") {
+      value.trim()
       addTodo({ text: value });
       setValue("");
     }

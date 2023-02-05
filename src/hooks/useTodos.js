@@ -1,5 +1,5 @@
 import { useToast } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function useTodos(initialTodos) {
   const [todos, setTodos] = useState(
@@ -7,6 +7,21 @@ function useTodos(initialTodos) {
       ? JSON.parse(localStorage.getItem("todos"))
       : initialTodos
   );
+
+  const toast = useToast();
+  const [isShowingToast, setIsShowingToast] = useState(false);
+
+  const showToast = (title) => {
+    setIsShowingToast(true);
+    toast({
+      title: "Success",
+      description: `${title}`,
+      position: "bottom-right",
+      status: "success",
+      duration: 1000,
+      isClosable: true
+    });
+  };
   
   const orderCompletedTodos = (todos) => {
     todos.sort((x, y) => x.isCompleted - y.isCompleted);
@@ -25,20 +40,9 @@ function useTodos(initialTodos) {
     return text;
   };
 
-  const toast = useToast();
-  const [isShowingToast, setIsShowingToast] = useState(false);
-
-  const showToast = (title) => {
-    setIsShowingToast(true);
-    toast({
-      title: "Success",
-      description: `${title}`,
-      position: "bottom-right",
-      status: "success",
-      duration: 1000,
-      isClosable: true
-    });
-  };
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return {
     todos,
@@ -54,9 +58,8 @@ function useTodos(initialTodos) {
         },
         ...todos,
       ];
-      orderCompletedTodos(newTodos);
+      // orderCompletedTodos(newTodos);
       setTodos(newTodos);
-      localStorage.setItem("todos", JSON.stringify(newTodos));
     },
     updateTodo: (todoId, newValue) => {
       if (!newValue || /^\s*$/.test(newValue)) {
@@ -69,13 +72,11 @@ function useTodos(initialTodos) {
 
       setTodos(updatedTodos);
       showToast("Updated todo successfully")
-      localStorage.setItem("todos", JSON.stringify(updatedTodos));
     },
     removeTodo: (todoId) => {
       const updatedTodos = todos.filter((todo) => todo.id !== todoId);
       setTodos(updatedTodos);
       showToast("Removed todo successfully")
-      localStorage.setItem("todos", JSON.stringify(updatedTodos));
     },
     toggleCompleteTodo: (todoId) => {
       const updatedTodos = todos.map((todo) => {
@@ -85,12 +86,10 @@ function useTodos(initialTodos) {
       });
       orderCompletedTodos(updatedTodos);
       setTodos(updatedTodos);
-      localStorage.setItem("todos", JSON.stringify(updatedTodos));
     },
     clearTodos: () => {
       setTodos([]);
       showToast("Cleared todos successfully")
-      localStorage.setItem("todos", JSON.stringify(todos));
     },
   };
 }

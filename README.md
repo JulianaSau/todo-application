@@ -34,5 +34,3 @@ You're expected to build a tdolist application that demonstrates React's compone
 
 
 
-
-
