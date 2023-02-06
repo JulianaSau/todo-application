@@ -11,7 +11,7 @@ const TodoStatus = ({status}) => {
     alignItems="left"
     justify="left"
     textAlign={"left"}
-    w="100%"
+    w="full"
     pt="10"
   >
     <Icon as={BsCheckCircle} h="24px" w="24px" color="blue.300" />
