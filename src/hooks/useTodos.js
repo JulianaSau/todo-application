@@ -19,12 +19,29 @@ function useTodos(initialTodos) {
       position: "bottom-right",
       status: "success",
       duration: 1000,
-      isClosable: true
+      isClosable: true,
     });
   };
-  
+
   const orderCompletedTodos = (todos) => {
     todos.sort((x, y) => x.isCompleted - y.isCompleted);
+  };
+
+  const initialTodoArrange = (todoId) => {
+    let to = todos.length + 1;
+    let from = 0;
+
+    const updatedTodos = todos.map((todo, index) => {
+      if (todo.id === todoId) {
+        todo.isCompleted = !todo.isCompleted;
+        from = index;
+      }
+      return todo;
+    });
+
+    // move completed item to bottom of list
+    updatedTodos.splice(to, 0, updatedTodos.splice(from, 1)[0]);
+    setTodos(updatedTodos);
   };
 
   const generateRandomString = (length) => {
@@ -71,26 +88,29 @@ function useTodos(initialTodos) {
       });
 
       setTodos(updatedTodos);
-      showToast("Updated todo successfully")
+      showToast("Updated todo successfully");
     },
     removeTodo: (todoId) => {
       const updatedTodos = todos.filter((todo) => todo.id !== todoId);
       setTodos(updatedTodos);
-      showToast("Removed todo successfully")
+      showToast("Removed todo successfully");
     },
     toggleCompleteTodo: (todoId) => {
-      orderCompletedTodos(todos)
-      const updatedTodos = todos.map((todo) => {
-        return todo.id === todoId
-          ? { ...todo, isCompleted: !todo.isCompleted }
-          : todo;
-      });
-      orderCompletedTodos(updatedTodos);
-      setTodos(updatedTodos);
+      if ([...todos.filter((todo) => todo.isCompleted === true)].length === 0) {
+        initialTodoArrange(todoId);
+      } else {
+        const updatedTodos = todos.map((todo) => {
+          return todo.id === todoId
+            ? { ...todo, isCompleted: !todo.isCompleted }
+            : todo;
+        });
+        orderCompletedTodos(updatedTodos);
+        setTodos(updatedTodos);
+      }
     },
     clearTodos: () => {
       setTodos([]);
-      showToast("Cleared todos successfully")
+      showToast("Cleared todos successfully");
     },
   };
 }
