@@ -79,6 +79,7 @@ function useTodos(initialTodos) {
       showToast("Removed todo successfully")
     },
     toggleCompleteTodo: (todoId) => {
+      orderCompletedTodos([...todos])
       const updatedTodos = todos.map((todo) => {
         return todo.id === todoId
           ? { ...todo, isCompleted: !todo.isCompleted }
