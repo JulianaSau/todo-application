@@ -55,7 +55,7 @@ const TodoList = () => {
               You've got {todos.length} task this week
             </Text>
           </Box>
-          <InputGroup mt={8} w={{ base: "90%", md: "full" }}>
+          <InputGroup mt={8} w={{ base: "100%", md: "full" }}>
             <InputLeftElement pointerEvents="none">
               <IconButton size="xs" p={2} as={AddIcon} color="white" bg="blue.300" />
             </InputLeftElement>
