@@ -58,7 +58,7 @@ function useTodos(initialTodos) {
         },
         ...todos,
       ];
-      // orderCompletedTodos(newTodos);
+      orderCompletedTodos(newTodos);
       setTodos(newTodos);
     },
     updateTodo: (todoId, newValue) => {
